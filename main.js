@@ -117,34 +117,48 @@ form.addEventListener('submit', function(e) {
     const szerzo = document.getElementById("szerzo_nev") //elkerem a fizika idt és beteszem az itt létrehozott változóba
     const csapat = document.getElementById("group") //elkerem a ido idt és beteszem az itt létrehozott változóba
     const muvei1 = document.getElementById("mu1") //elkerem a tudos1 idt és beteszem az itt létrehozott változóba
-   // const masodik = document.getElementById("masodik")
+    const masodik = document.getElementById("masodik").checked
     const muvei2 = document.getElementById("mu2") //elkerem a tudos2 idt és beteszem az itt létrehozott változóba
-
 
     const szerzoertek = szerzo.value //itt egy másik változóba belerakom az elöbb elkért terulet változó értékét
 
     const csapatertek = csapat.value //itt egy másik változóba belerakom az elöbb elkért idoszak változó értékét
 
-    const muveiertek1 = muvei1.value //itt egy másik változóba belerakom az elöbb elkért tudos1 változó értékét
+    let muveiertek1 = muvei1.value //itt egy másik változóba belerakom az elöbb elkért tudos1 változó értékét
 
-    //const masodikertek = masodik.value
+    const masodikertek = masodik.value
 
-    const muveiertek2 = muvei2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
+    let muveiertek2 = muvei2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
 
+    let valid  = true
 
-
-    const ujadat = { // egy uj objektumot hozunk létre 
-        szerzonev: szerzoertek, // az uj fizikateruletnek a teruletertek lesz az értéke
-        csapat : csapatertek, // az idoszaknak az idoszakerteke lesz az értéke
-        Művei1 : muveiertek1, // a tudos1-nek a tudos1ertek lesz az új értéke
-        Művei2 : muveiertek2 // a tudos2-nek a tudos2ertek lesz az új értéke
-
+    if(!szerzoertek || !csapatertek || !muveiertek1) {
+        valid = false
     }
 
 
-    array.push(ujadat) //belerakjuk az arrayben ami ugye már létezik ezt az új létrehozott adatobjektumunkat.
+    
+    if(masodik == false) {
+        muveiertek1.colSpan = 2
+        muveiertek2 = ""
+    }
 
-    tbody.innerHTML = "" //kitörlöm a táblázatot azért a tbodyt mert abban van igazából az egész táblázat a headerrel nem kell foglalkozni.
+    if(valid ) {
+        const ujadat = { // egy uj objektumot hozunk létre 
+            szerzonev: szerzoertek, // az uj fizikateruletnek a teruletertek lesz az értéke
+            csapat : csapatertek, // az idoszaknak az idoszakerteke lesz az értéke
+            Művei1 : muveiertek1, // a tudos1-nek a tudos1ertek lesz az új értéke
+            Művei2 : muveiertek2 // a tudos2-nek a tudos2ertek lesz az új értéke
+    
+        }
+    
+    
+        array.push(ujadat) //belerakjuk az arrayben ami ugye már létezik ezt az új létrehozott adatobjektumunkat.
+    
+        tbody.innerHTML = "" //kitörlöm a táblázatot azért a tbodyt mert abban van igazából az egész táblázat a headerrel nem kell foglalkozni.
+    
+        rendertable() // és az ujonnan belerakott dologgal ujragenerálom a táblát.
+    }
 
-    rendertable() // és az ujonnan belerakott dologgal ujragenerálom a táblát.
+ 
 })
