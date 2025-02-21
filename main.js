@@ -137,9 +137,20 @@ form.addEventListener('submit', function(e) {
     for(const errorelement of errorhtml){  //minden egyes element ami ebben az errorhtml-ben van 
         errorelement.innerHTML = '' //annak legyen az innerhtml-je üres string. (igy eltűnik majd a validácios szöveg ha tényleg irunk valamit)
     }   
+    function checkalap(ertek, uzenet) { // teridocheck függvény aminek a bemeneti paraméteri ertek és uzenet
+        if (!ertek.value ) { // ha az érték nek a tulajdonsága undefined vagy "" 
+            const parentElement = ertek.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+            const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+            if (errormsg) { //ha az errormsg van akkor 
+                errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
+            }
+            valid = false
+        }
+
+    }
 
 
-    function szerzokor(ertek,ertek2,checkbox, uzenet) { // teridocheck függvény aminek a bemeneti paraméteri ertek és uzenet
+    function check1(ertek,ertek2,checkbox, uzenet) { // teridocheck függvény aminek a bemeneti paraméteri ertek és uzenet
         if (ertek.value && ertek2.value && checkbox == false) { // ha az érték nek a tulajdonsága undefined vagy "" 
             const parentElement = ertek2.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
             const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
@@ -153,24 +164,29 @@ form.addEventListener('submit', function(e) {
 
     }
 
-
     
-    szerzokor(muvei1,muvei2,masodikertek,"Ha nincs bepipálva NE irj be másik művet.")
+    
+   
 
-
-    if (!muveiertek2 && masodikertek == true) { // ha az érték nek a tulajdonsága undefined vagy "" 
-        const parentElement = masodik.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
-        const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
-        if (errormsg) { //ha az errormsg van akkor 
-            errormsg.innerHTML = "Ha bejelölted akkor írj második művet is!"; //legyen a megadott uzenetünk az
+    function check2(ertek,checkbox, uzenet) { // teridocheck függvény aminek a bemeneti paraméteri ertek és uzenet
+        
+        if (!ertek.value && checkbox == true) { // ha az érték nek a tulajdonsága undefined vagy "" 
+            const parentElement = ertek.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+            const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+            if (errormsg) { //ha az errormsg van akkor 
+                errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
+            }
             valid = false
         }
+
     }
 
-    if(!szerzoertek || !csapatertek || !muveiertek1) {
-        valid = false
-    }
-  
+    check1(muvei1,muvei2,masodikertek,"Ha nincs bepipálva NE irj be másik művet.")
+    check2(muvei2, masodikertek, "Hogy ha van checkbox pipa akkor adjál értéket is")
+    checkalap(szerzo, "Irj be szerzot")
+    checkalap(csapat, "Irj be csapatot")
+    checkalap(muvei1, "Irj be legalább egy muvet")
+
 
     form.reset()
 
