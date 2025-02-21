@@ -117,7 +117,7 @@ form.addEventListener('submit', function(e) {
     const szerzo = document.getElementById("szerzo_nev") //elkerem a fizika idt és beteszem az itt létrehozott változóba
     const csapat = document.getElementById("group") //elkerem a ido idt és beteszem az itt létrehozott változóba
     const muvei1 = document.getElementById("mu1") //elkerem a tudos1 idt és beteszem az itt létrehozott változóba
-    const masodik = document.getElementById("masodik").checked
+    const masodik = document.getElementById("masodik")
     const muvei2 = document.getElementById("mu2") //elkerem a tudos2 idt és beteszem az itt létrehozott változóba
 
     const szerzoertek = szerzo.value //itt egy másik változóba belerakom az elöbb elkért terulet változó értékét
@@ -126,7 +126,7 @@ form.addEventListener('submit', function(e) {
 
     let muveiertek1 = muvei1.value //itt egy másik változóba belerakom az elöbb elkért tudos1 változó értékét
 
-    const masodikertek = masodik.value
+    const masodikertek = masodik.checked
 
     let muveiertek2 = muvei2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
 
@@ -152,8 +152,20 @@ form.addEventListener('submit', function(e) {
         }
 
     }
+
+
     
-    szerzokor(muvei1,muvei2,masodik,"Ha nincs bepipálva NE irj be másik művet.")
+    szerzokor(muvei1,muvei2,masodikertek,"Ha nincs bepipálva NE irj be másik művet.")
+
+
+    if (!muveiertek2 && masodikertek == true) { // ha az érték nek a tulajdonsága undefined vagy "" 
+        const parentElement = masodik.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+        const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+        if (errormsg) { //ha az errormsg van akkor 
+            errormsg.innerHTML = "Ha bejelölted akkor írj második művet is!"; //legyen a megadott uzenetünk az
+            valid = false
+        }
+    }
 
     if(!szerzoertek || !csapatertek || !muveiertek1) {
         valid = false
