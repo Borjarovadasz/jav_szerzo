@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Irodalom</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <table>
@@ -21,20 +22,36 @@
         </table>
 
         <form id="form" action="#">
-            <label for="szerzo_nev">Szerző neve:</label><br>
-            <input type="text" id="szerzo_nev" name="szerzo_nev"><br><br>
-    
-            <label for="group">Csapat:</label><br>
-            <input type="text" id="group" name="group"><br><br>
-    
-            <label for="mu1">Első mű:</label><br>
-            <input type="text" id="mu1" name="mu1"><br><br>
-    
-            <label for="masodik">Szeretnél megadni második művet is?</label>
-            <input name="masodik" id="masodik" type="checkbox"><br><br>
+            <div>
+                <label for="szerzo_nev">Szerző neve:</label><br>
+                <input type="text" id="szerzo_nev" name="szerzo_nev"><br><br>
+                <div class="error"></div>
+            </div>
+            <div>
+                <label for="group">Csapat:</label><br>
+                <input type="text" id="group" name="group"><br><br>
+                <div class="error"></div>
+            </div>
+            <div>
+                <label for="mu1">Első mű:</label><br>
+                <input type="text" id="mu1" name="mu1"><br><br>
+                <div class="error"></div>
+            </div>
+            <div>
 
-            <label for="mu2">Második mű:</label><br>
-            <input type="text" id="mu2" name="mu2"><br><br>
+                <label for="masodik">Szeretnél megadni második művet is?</label>
+                <input name="masodik" id="masodik" type="checkbox"><br><br>
+                <div class="error"></div>
+            </div>
+            <div>
+                <label for="mu2">Második mű:</label><br>
+                <input type="text" id="mu2" name="mu2"><br><br>
+                <div class="error"></div>
+            </div>
+            
+    
+
+          
     
             <button>Hozzáadás</button>
         </form>

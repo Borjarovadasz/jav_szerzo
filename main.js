@@ -132,16 +132,35 @@ form.addEventListener('submit', function(e) {
 
     let valid  = true
 
+    const form = e.currentTarget  
+    const errorhtml = form.querySelectorAll('.error') //a formon belül mindenet aminek error classal rendelkezik beletesszük egy változoba
+    for(const errorelement of errorhtml){  //minden egyes element ami ebben az errorhtml-ben van 
+        errorelement.innerHTML = '' //annak legyen az innerhtml-je üres string. (igy eltűnik majd a validácios szöveg ha tényleg irunk valamit)
+    }   
+
+
+    function szerzokor(ertek,ertek2,checkbox, uzenet) { // teridocheck függvény aminek a bemeneti paraméteri ertek és uzenet
+        if (ertek.value && ertek2.value && checkbox == false) { // ha az érték nek a tulajdonsága undefined vagy "" 
+            const parentElement = ertek2.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+            const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+            if (errormsg) { //ha az errormsg van akkor 
+                errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
+            }
+            ertek.colSpan = 2
+            ertek2.value = ""
+            valid = false
+        }
+
+    }
+    
+    szerzokor(muvei1,muvei2,masodik,"Ha nincs bepipálva NE irj be másik művet.")
+
     if(!szerzoertek || !csapatertek || !muveiertek1) {
         valid = false
     }
+  
 
-
-    
-    if(masodik == false) {
-        muveiertek1.colSpan = 2
-        muveiertek2 = ""
-    }
+    form.reset()
 
     if(valid ) {
         const ujadat = { // egy uj objektumot hozunk létre 
